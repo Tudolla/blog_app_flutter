@@ -1,24 +1,24 @@
 import 'package:blog/core/common/widgets/loader.dart';
-import 'package:blog/core/error/failures.dart';
 import 'package:blog/core/theme/app_pallete.dart';
+import 'package:blog/core/theme/theme.dart';
 import 'package:blog/core/utils/show_snackbar.dart';
 import 'package:blog/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:blog/features/auth/presentation/pages/login_page.dart';
+import 'package:blog/features/auth/presentation/pages/signup_page.dart';
 import 'package:blog/features/auth/presentation/widgets/auth_button.dart';
 import 'package:blog/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpPage extends StatefulWidget {
-  static route() => MaterialPageRoute(builder: (context) => SignUpPage());
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  static route() => MaterialPageRoute(builder: (context) => LoginPage());
+  const LoginPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final nameController = TextEditingController();
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
@@ -26,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    nameController.dispose();
+
     emailController.dispose();
     passController.dispose();
   }
@@ -35,7 +35,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       // backgroundColor: const Color.fromARGB(255, 175, 175, 192),
       backgroundColor: AppPallete.backgroundColor,
       body: Padding(
@@ -56,65 +55,57 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Be a new user!',
+                    'Login to LOL!',
                     style: TextStyle(
                       color: AppPallete.greyColor,
                       fontSize: 46,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 30,
-                  ),
-                  AuthField(
-                    hintText: "Name",
-                    controller: nameController,
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                   AuthField(
                     hintText: "Email",
                     controller: emailController,
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
                   AuthField(
                       hintText: "Pass",
                       controller: passController,
                       isPassword: true),
-                  const SizedBox(
+                  SizedBox(
                     height: 18,
                   ),
                   AuthButton(
-                    text: "Sign Up",
+                    text: "Login",
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(AuthSignUp(
-                            name: nameController.text.trim(),
+                        context.read<AuthBloc>().add(AuthLogin(
                             email: emailController.text.trim(),
                             password: passController.text.trim()));
                       }
                     },
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 10,
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, LoginPage.route());
+                      Navigator.of(context).push(SignUpPage.route());
                     },
                     child: RichText(
                       text: TextSpan(
-                          text: "Already have an account! ",
+                          text: "Dont't have an account! ",
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.normal,
                                   ),
                           children: [
                             TextSpan(
-                              text: "Login",
+                              text: "SignUp",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium

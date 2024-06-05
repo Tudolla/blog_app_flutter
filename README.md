@@ -4,13 +4,11 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+![alt text](flutter-app-development-roadmap-by-tarikul.png)
 
-A few resources to get you started if this is your first Flutter project:
+1. create sign up, login UI and logic
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. create supabase to get url, apiKey .
+   ? why won't create SupabaseClient in AuthRemoteDataSoure:
+   first : easy to test, second: mock Supabase with SupabaseClient
+3.
