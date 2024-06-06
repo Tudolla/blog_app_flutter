@@ -1,4 +1,7 @@
-import 'package:blog/features/auth/domain/entities/user.dart';
+import 'package:blog/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:blog/core/usecase/usecase.dart';
+import 'package:blog/core/entities/user.dart';
+import 'package:blog/features/auth/domain/usecases/current_user.dart';
 import 'package:blog/features/auth/domain/usecases/user_login.dart';
 import 'package:blog/features/auth/domain/usecases/user_signup.dart';
 import 'package:flutter/material.dart';
@@ -10,14 +13,31 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignup _userSignup;
   final UserLogin _userLogin;
+  final CurrentUser _currentUser;
+  final AppUserCubit _appUserCubit;
   AuthBloc({
     required UserSignup userSignUp,
     required UserLogin userLogin,
+    required CurrentUser currentUser,
+    required AppUserCubit appUserCubit,
   })  : _userSignup = userSignUp,
         _userLogin = userLogin,
+        _currentUser = currentUser,
+        _appUserCubit = appUserCubit,
         super(AuthInitial()) {
     on<AuthSignUp>(_onAuthSignUp);
     on<AuthLogin>(_onAuthLogin);
+    on<AuthIsUserLoggedIn>(_isUserLoggedIn);
+  }
+
+  void _isUserLoggedIn(
+      AuthIsUserLoggedIn event, Emitter<AuthState> emit) async {
+    final res = await _currentUser(NoParams());
+
+    res.fold((l) => emit(AuthFailure(l.message)), (r) {
+      print(r.email);
+      emit(AuthSuccess(r));
+    });
   }
 
   void _onAuthSignUp(AuthSignUp event, Emitter<AuthState> emit) async {

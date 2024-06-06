@@ -1,6 +1,6 @@
 // abstract interface is force a class which must implement this one.
 import 'package:blog/core/error/failures.dart';
-import 'package:blog/features/auth/domain/entities/user.dart';
+import 'package:blog/core/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class AuthRepository {
@@ -15,4 +15,6 @@ abstract interface class AuthRepository {
     required String email,
     required String password,
   });
+
+  Future<Either<Failure, User>> currentUser();
 }

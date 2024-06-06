@@ -1,13 +1,11 @@
 import 'package:blog/core/common/widgets/loader.dart';
 import 'package:blog/core/theme/app_pallete.dart';
-import 'package:blog/core/theme/theme.dart';
 import 'package:blog/core/utils/show_snackbar.dart';
 import 'package:blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog/features/auth/presentation/pages/signup_page.dart';
 import 'package:blog/features/auth/presentation/widgets/auth_button.dart';
 import 'package:blog/features/auth/presentation/widgets/auth_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
 
     emailController.dispose();
@@ -54,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Login to LOL!',
                     style: TextStyle(
                       color: AppPallete.greyColor,
@@ -62,21 +59,21 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   AuthField(
                     hintText: "Email",
                     controller: emailController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   AuthField(
                       hintText: "Pass",
                       controller: passController,
                       isPassword: true),
-                  SizedBox(
+                  const SizedBox(
                     height: 18,
                   ),
                   AuthButton(
@@ -89,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   GestureDetector(
