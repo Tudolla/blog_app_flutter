@@ -15,6 +15,7 @@ class AppTheme {
         contentPadding: EdgeInsets.all(25),
         enabledBorder: _border(AppPallete.borderColor),
         focusedBorder: _border(AppPallete.gradient1),
+        errorBorder: _border(AppPallete.errorColor),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppPallete.backgroundColor,
