@@ -26,7 +26,9 @@ class BlogModel extends Blog {
 
   factory BlogModel.fromJson(Map<String, dynamic> map) {
     return BlogModel(
-      id: ['id'] as String,
+      ///// Mất 1 ngày để fix cái lỗi quỷ này, thiếp map
+      ///// ********************************************
+      id: map['id'] as String,
       posterId: map['poster_id'] as String,
       title: map['title'] as String,
       content: map['content'] as String,

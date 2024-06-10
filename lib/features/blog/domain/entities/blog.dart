@@ -7,6 +7,8 @@ class Blog {
   final String content;
   final String imageUrl;
   final List<String> topics;
+  // final String topics;
+
   final DateTime updatedAt;
   final String? posterName;
 

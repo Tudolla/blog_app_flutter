@@ -5,6 +5,7 @@ import 'package:blog/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog/features/auth/presentation/pages/signup_page.dart';
 import 'package:blog/features/auth/presentation/widgets/auth_button.dart';
 import 'package:blog/features/auth/presentation/widgets/auth_field.dart';
+import 'package:blog/features/blog/presentation/pages/blog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final formKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
@@ -28,18 +31,20 @@ class _LoginPageState extends State<LoginPage> {
     passController.dispose();
   }
 
-  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: const Color.fromARGB(255, 175, 175, 192),
       backgroundColor: AppPallete.backgroundColor,
       body: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
               showSnackBar(context, state.message);
+            } else if (state is AuthSuccess) {
+              Navigator.pushAndRemoveUntil(
+                  context, BlogPage.route(), (route) => false);
             }
           },
           builder: (context, state) {
@@ -52,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Login to LOL!',
+                    'Welcome to Blog Share',
                     style: TextStyle(
                       color: AppPallete.greyColor,
                       fontSize: 46,
@@ -70,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 10,
                   ),
                   AuthField(
-                      hintText: "Pass",
+                      hintText: "Password",
                       controller: passController,
                       isPassword: true),
                   const SizedBox(

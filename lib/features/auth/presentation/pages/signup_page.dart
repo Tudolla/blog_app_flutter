@@ -38,98 +38,102 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: AppBar(),
       // backgroundColor: const Color.fromARGB(255, 175, 175, 192),
       backgroundColor: AppPallete.backgroundColor,
-      body: Padding(
-        padding: EdgeInsets.all(15.0),
-        child: BlocConsumer<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state is AuthFailure) {
-              showSnackBar(context, state.message);
-            }
-          },
-          builder: (context, state) {
-            if (state is AuthLoading) {
-              return const Loader();
-            }
-            return Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Be a new user!',
-                    style: TextStyle(
-                      color: AppPallete.greyColor,
-                      fontSize: 46,
-                      fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthFailure) {
+                showSnackBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return const Loader();
+              }
+              return Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Be a new user!',
+                      style: TextStyle(
+                        color: AppPallete.greyColor,
+                        fontSize: 46,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  AuthField(
-                    hintText: "Name",
-                    controller: nameController,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  AuthField(
-                    hintText: "Email",
-                    controller: emailController,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  AuthField(
-                      hintText: "Pass",
-                      controller: passController,
-                      isPassword: true),
-                  const SizedBox(
-                    height: 18,
-                  ),
-                  AuthButton(
-                    text: "Sign Up",
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(AuthSignUp(
-                            name: nameController.text.trim(),
-                            email: emailController.text.trim(),
-                            password: passController.text.trim()));
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, LoginPage.route());
-                    },
-                    child: RichText(
-                      text: TextSpan(
-                          text: "Already have an account! ",
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                          children: [
-                            TextSpan(
-                              text: "Login",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    color: AppPallete.errorColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            )
-                          ]),
+                    const SizedBox(
+                      height: 30,
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+                    AuthField(
+                      hintText: "Name",
+                      controller: nameController,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AuthField(
+                      hintText: "Email",
+                      controller: emailController,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AuthField(
+                        hintText: "Pass",
+                        controller: passController,
+                        isPassword: true),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    AuthButton(
+                      text: "Sign Up",
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(AuthSignUp(
+                              name: nameController.text.trim(),
+                              email: emailController.text.trim(),
+                              password: passController.text.trim()));
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, LoginPage.route());
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                            text: "Already have an account! ",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                ),
+                            children: [
+                              TextSpan(
+                                text: "Login",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: AppPallete.errorColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              )
+                            ]),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

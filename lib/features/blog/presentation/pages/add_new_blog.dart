@@ -74,7 +74,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
           listener: (context, state) {
             if (state is BlogFailure) {
               showSnackBar(context, state.error);
-            } else if (state is BlogSuccess) {
+            } else if (state is BlogUploadSuccess) {
               Navigator.pushAndRemoveUntil(
                   context, BlogPage.route(), (route) => false);
             }
@@ -158,7 +158,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                                         selectTopic.add(e);
                                       }
                                       setState(() {});
-                                      print(selectTopic);
+                                      // print(selectTopic);
                                     },
                                     child: Chip(
                                       label: Text(e),
